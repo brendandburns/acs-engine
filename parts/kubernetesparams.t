@@ -23,8 +23,15 @@
       },
       "type": "securestring"
     },
-{{if not .HasMaster}}
-    "firstConsecutiveStaticIp": {
+{{if IsHostedMaster}}
+    "kubernetesEndpoint": {
+      "metadata": {
+        "description": "The Kubernetes API endpoint https://<kubernetesEndpoint>:443"
+      },
+      "type": "string"
+    },
+{{else}}
+   "firstConsecutiveStaticIp": {
       "metadata": {
         "description": "The first static IP address"
       },

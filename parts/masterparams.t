@@ -10,7 +10,7 @@
       }, 
       "type": "string"
     },
-{{if .HasMaster }}
+{{if not IsHostedMaster }}
   {{if .MasterProfile.IsCustomVNET}}
     "masterVnetSubnetID": {
       "metadata": {
@@ -28,7 +28,15 @@
     },
   {{end}}
 {{end}}
-{{if .HasMaster}}
+{{if IsHostedMaster}}
+    "kubernetesEndpoint": {
+      "defaultValue": "{{.HostedMasterProfile.FQDN}}",
+      "metadata": {
+        "description": "Sets the static IP of the first master"
+      },
+      "type": "string"
+    },
+{{else}}
     "firstConsecutiveStaticIP": {
       "defaultValue": "{{.MasterProfile.FirstConsecutiveStaticIP}}",
       "metadata": {
