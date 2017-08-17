@@ -31,7 +31,7 @@
       "type": "string"
     },
 {{else}}
-    "firstConsecutiveStaticIp": {
+   "firstConsecutiveStaticIp": {
       "metadata": {
         "description": "The first static IP address"
       },

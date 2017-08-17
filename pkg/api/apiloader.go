@@ -48,6 +48,12 @@ func (a *Apiloader) DeserializeContainerService(contents []byte, validate bool) 
 // LoadContainerService loads an ACS Cluster API Model, validates it, and returns the unversioned representation
 func (a *Apiloader) LoadContainerService(contents []byte, version string, validate bool) (*ContainerService, error) {
 	switch version {
+	case v20170831.APIVersion:
+		containerService := &v20170831.HostedMaster{}
+		if e := json.Unmarshal(contents, &containerService); e != nil {
+			return nil, e
+		}
+		return ConvertV20170831AgentPool(containerService), nil
 	case v20160930.APIVersion:
 		containerService := &v20160930.ContainerService{}
 		if e := json.Unmarshal(contents, &containerService); e != nil {
@@ -144,6 +150,10 @@ func (a *Apiloader) SerializeContainerService(containerService *ContainerService
 	}
 
 	switch version {
+	case v20170831.APIVersion:
+		// TODO: implement this...
+		return []byte("Implement this..."), nil
+
 	case v20160930.APIVersion:
 		v20160930ContainerService := ConvertContainerServiceToV20160930(containerService)
 		armContainerService := &V20160930ARMContainerService{}

@@ -45,6 +45,7 @@
     "masterFqdnPrefix": "[tolower(parameters('masterEndpointDNSNamePrefix'))]",
 {{ if not IsHostedMaster }}
     "masterPrivateIp": "[parameters('firstConsecutiveStaticIP')]",
+{{ if .HasMaster }}
     "masterVMSize": "[parameters('masterVMSize')]",
 {{end}}
     "sshPublicKeyData": "[parameters('sshRSAPublicKey')]",
